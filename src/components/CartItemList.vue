@@ -1,20 +1,13 @@
 <script setup>
-import { inject } from 'vue'
+import { useMainStore } from '@/stores/MainStore';
 
-const drawerElements = inject('addedToDrawer')
-console.log(drawerElements)
+const mainStore = useMainStore()
 
-// const emit = defineEmits(['remove-from-drawer'])
-
-const removeFromDrawer = (drawerElement) => {
-    drawerElement.isAdded = ''
-    drawerElements.value = drawerElements.value.filter(a => a.id !== drawerElement.id)
-}
 </script>
 <template>
     <div class="grid grid-cols-1" v-auto-animate>
         <div
-            v-for="(drawerElement) in drawerElements"
+            v-for="(drawerElement) in mainStore.addedToDrawer"
             :key="drawerElement.id"
             class="flex flex-col mb-5">
             <div class=" flex items-center border border-slate-200 rounded-small p-4 gap-4">
@@ -23,7 +16,7 @@ const removeFromDrawer = (drawerElement) => {
                     <p>{{ drawerElement.title }}</p>
                     <b>{{ drawerElement.price }} руб.</b>
                 </div>
-                <img @click="removeFromDrawer(drawerElement)" class="cursor-pointer opacity-50 hover:opacity-100 transition" src="/public/close.svg">
+                <img @click="mainStore.removeFromDrawer(drawerElement)" class="cursor-pointer opacity-50 hover:opacity-100 transition" src="/public/close.svg">
             </div>
         </div>
     </div>

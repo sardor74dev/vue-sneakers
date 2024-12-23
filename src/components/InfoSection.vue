@@ -1,10 +1,9 @@
 <script setup>
+import { useMainStore } from '@/stores/MainStore';
 defineProps(['title', 'description', 'imageUrl'])
-const emit = defineEmits(['closeDrawer'])
 
-const closeDrawer = () => {
-    emit('closeDrawer')
-}
+const mainStore = useMainStore()
+
 </script>
 <template>
     <div class="flex flex-col items-center text-center gap-5">
@@ -18,7 +17,7 @@ const closeDrawer = () => {
             </p>
         </div>
         <router-link to="/">
-            <button @click="closeDrawer" class="bg-lime-500 rounded-small w-full px-14 pt-5 pb-5 text-white font-sans font-normal hover:bg-lime-600 active:bg-lime-700 cursor-pointer">
+            <button @click="mainStore.closeDrawer" class="bg-lime-500 rounded-small w-full px-14 pt-5 pb-5 text-white font-sans font-normal hover:bg-lime-600 active:bg-lime-700 cursor-pointer">
                 Вернуться назад
             </button>
         </router-link>
